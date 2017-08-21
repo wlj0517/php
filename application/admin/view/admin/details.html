@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__CSS_PATH__/pintuer.css">
+<link rel="stylesheet" href="__CSS_PATH__/admin.css">
+<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
+<script src="__JS_PATH__/jquery.js"></script>
+
+</head>
+<body>
+<form method="post" action="" id="listform">
+  <div class="panel admin-panel">
+   
+   
+    <table class="table table-hover text-center">
+      <tr>
+        <th >ID</th>
+        <th>微信昵称</th>
+        <th>头像</th>
+        <th>助力金额</th>
+        <th>时间</th>
+      </tr>
+       {volist name='helpInfo' id='vo'}
+        <tr>
+         
+          <td></td>
+          <td width="10%">{$vo.wx_name}</td>
+          <td><img src='{$vo.wx_headimgurl|default="__STATI_INDEX__images/bargain/face.png"}' width="46" /></td>
+          <td><font color="#00CC99">{$vo.h_money}</font></td>
+          <td><font color="#00CC99">{$vo.register_time|date="y-m-d H:i:s",###}</font></td>
+         
+          
+        </tr>
+      {/volist}
+     
+      <tr>
+      <td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</form>
+<script type="text/javascript">
+
+//搜索
+function changesearch(){  
+    var tel = $('input[name=keywords]').val();
+    if(!tel.match(/0?(13|14|15|18)[0-9]{9}/)){
+        alert('手机号格式错误')
+        return false;
+    }
+    $.get({:url('admin/admin/search')}, data, function(data){
+        
+    },'json');
+}
+
+
+
+
+
+
+</script>
+</body>
+</html>

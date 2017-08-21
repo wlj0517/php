@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+	<title>心系学员,千锋狂送百万福利！</title>
+	<link rel="stylesheet" href="__STATI_BARGAIN__css/bargain{$css_rand_num}.css">
+</head>
+<body>
+	
+<!-- 背景音乐 -->
+	<audio id="mp3" autoplay="autoplay" preload="" loop="" style="position: absolute; top: 0; left: 0; opacity: 0;">
+		<source src="__STATI_BARGAIN__1.mp3" type="audio/mpeg">
+	</audio>
+	<div class="flex-center-y">
+			
+		<!-- 顶部LOGO -->
+		<img src="__STATI_BARGAIN__images/bargain/top.jpg" class="top-logo" alt="">
+		<!-- 倒计时 -->
+		<div class="countdown" data-date="2017-6-19"></div>
+
+		<!-- 音乐播放小图标 -->
+		<span class="music-icon infinity-rotate"></span>
+
+		<!-- 头部 -->
+		<h1 class="tit">
+			100万房租补贴任你抢
+			<i></i>
+			<p>千锋送福利</p>
+		</h1>
+		<h2 class="f-tit">
+			唤醒为你拔刀的朋友，帮你来抢住宿费
+		</h2>
+
+		<!-- 小提示 -->
+		<div class="tips" data-date="2017-6-28">
+			此优惠仅限2017年6月1日—12月31日入班学员使用
+		</div>
+		<!-- 倒计时 -->
+		<div class="countdown" data-date="2017-6-28">xx天xx小时xx分xx秒</div>
+
+		<!-- 老虎机 -->
+		<div class="tigerbox">
+			<p>
+				<span class="username">{$info['wx_name']}</span>已获得：<strong class="mymoney">{$info['help_money']|default="0"}</strong>元
+			</p>
+			<!-- 进度条 -->
+			<div class="progressbar"><span style="width:{$bar|default=0}%;"></span></div>
+			<div class="decoration">
+				<div class="card-coupons">
+					<!-- 
+						添加 infinity-animate 开始滚动 
+						移除 infinity-animate 停止滚动
+					-->
+					<ul class="j-scroll">
+						{volist name='randoms' id='vo'}
+						<li><span>{$vo}元</span></li>
+						{/volist}
+					</ul>
+				</div>
+			</div>
+			<div class="btns flex">
+				{if condition="$haveHelp eq 1"}
+						<a href="javascript:;" class="btns-btn1-style2 j-me-start help">已经帮助过</a>
+				{elseif condition="$info['help_money'] eq 1000"/}
+						<a href="javascript:;" class="btns-btn1-style2 j-me-start help">他已经集齐</a>
+				{else /} 
+						<a href="javascript:;" class="btns-btn1-style1 j-me-start help">帮好友抢房租</a>
+				{/if}
+				{if condition="$Think.session.user.status neq 0"}
+					<a href="{:url('index/index')}" class="btns-btn2 j-invite-friends">查看我的</a>	
+				{else /} 
+					<a href="{:url('index/index')}" class="btns-btn2 j-invite-friends">我也要参加</a>	
+				{/if}
+				<input type="hidden" name="help_id" value="{$info['id']}" />
+			</div>
+		</div>
+
+		<!-- 好友助力榜 -->
+		<div class="friends-help-list">
+			<h3 class="today">好友助力榜</h3>
+			<div>
+				<ul>
+					
+					{if condition="$helpInfo neq 1"}
+						{volist name='helpInfo' id='vo'}
+							<li class="clearfix">
+								<div class="fl">
+									<img src='{$vo.wx_headimgurl|default="__STATI_INDEX__images/bargain/face.png"}'/>
+								</div>
+								<p class="fl">
+									<span>{$vo.wx_name}</span>
+									<br>
+									<strong>{$vo.update_time}</strong>
+								</p>
+								<span class="fr">已获得{$vo.help_money}元</span>
+							</li>
+						{/volist}
+					{/if}
+				</ul>
+			</div>
+		</div>
+
+		<!-- 就业锋云榜 -->
+		<div class="qf-job">
+			<h3>就业锋云榜</h3>
+			<table>
+				<thead><tr><td>姓名</td><td>学科</td><td>月薪</td></tr></thead>
+				<tbody>
+					<tr><td>田*龙</td><td>HTML5</td><td>19000元</td></tr>
+					<tr><td>杨*</td><td>UI</td><td>20000元</td></tr>
+					<tr><td>李*珉</td><td>PHP</td><td>15000元</td></tr>
+					<tr><td>潘*聪</td><td>Android</td><td>18000元</td></tr>
+					<tr><td>司*阳</td><td>VR</td><td>15000元</td></tr>
+					<tr><td>赵* </td><td>Java</td><td>20000元</td></tr>
+				</tbody>
+			</table>
+		</div>
+		<a href="http://wap.mobiletrain.org/jyxz.html" target="_blank" class="more-job">查看更多就业信息<span></span></a>
+
+
+		<!-- 二维码 (删除) -->
+<!-- 		<div class="QRcode clearfix">
+			<p class="fl">
+				<img src="images/bargain/qrcode.jpg" alt="">
+				关注千锋教育<br>
+				您的专属移动开发导师
+			</p>
+			<p class="fl">
+				<img src="images/bargain/qrcode.jpg" alt="">
+				关注千锋公众号<br>
+				更多活动等您参加
+			</p>
+		</div> -->
+	</div>
+
+	<!-- 固定底部 -->
+	<div class="fixed-bottom flex flex-center-x">
+		<a href="javascript:;" class="j-activity-desc flex-center-x"><span></span>活动说明</a>
+		<a href="http://tb.53kf.com/code/client/10132404/3" target="_blank" class=" flex-center-x"><span></span>在线答疑</a>
+		<a href="javascript:;" class="j-aboutQF flex-center-x"><span></span>关注千锋教育</a>
+	</div>
+
+	<!-- 弹窗 -->
+	<div class="alert-box flex-center-xy">
+		<!-- 关注千锋教育 -->	
+		<div class="aboutQF flex-center-xy">
+			<span class="close"></span>
+			<img src="__STATI_BARGAIN__images/bargain/qrcode.jpg" alt="">
+			<p>
+				长按二维码关注千锋公众号<br>
+				了解更多活动信息
+			</p>
+		</div>
+
+		<!-- 活动说明 -->
+		<div class="activity-desc flex-center-xy">
+			<span class="close"></span>
+			<h3>活动规则：</h3>
+			<p>
+				1、进入活动页面参与活动，邀请好友帮忙抢，每抢一次随机增加相应金额，金额可累计，最多可达1000元。前10名到达1000元的学员有意外红包一份，领取方法关注千锋教育微信。
+			</p>
+			<p>
+				2、活动开始前填写的信息必须真实有效，学员需凭该信息实现房租金额抵现，我们会保证您的信息安全。
+			</p>
+			<p>
+				3、活动时间为2017年6月1日——6月18日，活动本着公平、公开、公正的原则不可使用非法手段参与活动，一经查出取消活动资格。活动所有数据以后台数据为准，个人截图等不做为参考。
+			</p>
+			<p>
+				4、凡参加此次活动的学员，报名参加千锋2017年课程，可凭手机号，身份证原件在缴纳学费时抵扣相应金额补贴 ，发生退费不享受此活动优惠。
+			</p>
+			<p>
+				5、参加本次活动获得的优惠仅限本人使用，且每人仅限一个ID(手机号)，优惠可以叠加使用，仅限2017年6月1日—12月31日入班学员使用。此活动中获得的房租金额不可折现。
+			</p>
+			<p>
+				6、该活动最终解释权归千锋教育，如有问题请添加千锋教育公众号进行咨询。
+			</p>
+		</div>
+	
+		
+
+		<!-- 抢完 -->
+		<div class="over flex-center-xy ">
+			<span class="close "></span>
+			<span class="alert-top-img"></span>
+			<p>您已成功抢到最高金额</p>
+			<h3>1000元</h3>
+			<a class="alert-btn" href="javascript:;">关注更多活动</a>
+		</div>
+
+		<!-- 我抢到的 -->
+		<div class="me flex-center-xy ">
+			<span class="close "></span>
+			<p>恭喜你，成功的抢到了</p>
+			<h3>20元</h3>
+			<a class="alert-btn loc" href="javascript:;">确定</a>
+		</div>
+
+		<!-- 别人抢到的 -->
+		<div class="other flex-center-xy ">
+			<span class="close "></span>
+			<p>您已成功的帮您的朋友抢到了</p>
+			<h3><!-- 20元 --></h3>
+			<a class="alert-btn loc" href="javascript:;">确定</a>
+		</div>
+		
+		
+	</div>
+	
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+	<script src="__STATI_BARGAIN__js/bargain{$js_rand_num}.js"></script>
+</body>
+</html>
+
+<script>
+	
+	var lineLink = window.location.href;
+		wx.config({
+			debug: false,
+			appId: '<?php echo $signPackage["appId"];?>',
+			timestamp: <?php echo $signPackage["timestamp"];?>,
+			nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+			signature: '<?php echo $signPackage["signature"];?>',
+			jsApiList: [
+				// 所有要调用的 API 都要加到这个列表中
+				'checkJsApi',
+				'openLocation',
+				'getLocation',
+				'onMenuShareTimeline',
+				'onMenuShareAppMessage',
+				
+			  ]
+		});
+		wx.ready(function () {
+			wx.checkJsApi({
+				jsApiList: [
+					'getLocation',
+					'onMenuShareTimeline',
+					'onMenuShareAppMessage',
+					'translateVoice',
+					'onVoiceRecordEnd',
+					'stopVoice'
+				],
+				success: function (res) {
+					//alert(JSON.stringify(res));
+				}
+			});
+			wx.onMenuShareAppMessage({
+			  title: '心系学员,千锋狂送百万福利!',
+			  desc: '测一波信任度，抢钱靠的就是人多势众',
+			  link: lineLink,
+			  imgUrl:'__STATI_BARGAIN__images/bargain/qf.jpg',
+			  trigger: function (res) {
+				// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+				// alert('用户点击发送给朋友');
+			  },
+			  success: function (res) {
+				window.location.href ='http://'+host;
+			  },
+			  cancel: function (res) {
+				// alert('已取消');
+			  },
+			  fail: function (res) {
+				// alert(JSON.stringify(res));
+			  }
+			});
+			wx.onMenuShareTimeline({
+			  title: '心系学员,千锋狂送百万福利!',
+			  desc: '测一波信任度，抢钱靠的就是人多势众',
+			  link: lineLink,
+			  imgUrl: '__STATI_BARGAIN__images/bargain/qf.jpg',
+			  trigger: function (res) {
+				// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+				// alert('用户点击分享到朋友圈');
+			  },
+			  success: function (res) {
+				window.location.href ='http://'+host;
+			  },
+			  cancel: function (res) {
+				// alert('已取消');
+			  },
+			  fail: function (res) {
+				// alert(JSON.stringify(res));
+			  }
+			});
+
+		});
+
+	
+</script>

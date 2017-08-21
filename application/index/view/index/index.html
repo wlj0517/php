@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>php砍价活动</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,initial-scale=1.0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<link rel="stylesheet" href="__CSS_PATH__/qf-php-bargain.css?t=1234">
+</head>
+<body>
+	<!-- 头部 -->
+	<div class="header">
+		<img class="header-logo" src="__IMG_PATH__/qf-php-bargain/logo.png" alt="千锋教育">
+		<div class="header-nav">
+			<a href="javascript:;" class="j-eventdescription">活动说明></a>
+			<a hrer="javascript:;" class="j-qrcode-btn">二维码></a>
+		</div>
+		<!-- 进度条 -->
+		<div class="header-bar">
+			<!-- 我的进度 -->
+			<div class="j-head-bar"><span style="width: {$bar|default=0}%;"><i>已喊出{$sum_money|default=0}元</i></span></div>
+			<p class="j-head-bar-num">
+				<span>0</span>
+				<span>100</span>
+				<span>200</span>
+				<span>300</span>
+				<span>400</span>
+				<span>500</span>
+				<span>600</span>
+				<span>700</span>
+				<span>800</span>
+				<span>900</span>
+				<span>1000</span>
+			</p>		
+		</div>
+	</div>
+
+	<!-- 互动部分 -->
+	<div class="center">
+		<!-- 滚动播放好友助力 -->
+		
+		<div class="friends-help">
+			<h3><span>{$Think.session.user.wx_name}</span>的助力团</h3>
+			<div>
+				<ul class="j-help-list">
+			{if condition="$helpList neq 1"}
+					{volist name='helpList' id='vo'}
+					<li class="clearfix">
+						<img class="fl" src="{$vo.wx_headimgurl|default="__IMG_PATH__/qf-php-bargain/face.png"}" alt="">
+						<span class="fl">{$vo.wx_name}</span>
+						<p class="fr">帮你喊出<span>{$vo.h_money}</span>元</p>
+					</li>
+					{/volist}
+			{else /}
+					<li class="clearfix"><span class="fl">快参加活动寻找你的助力团吧！</span></li>
+				{/if}
+				</ul>
+			</div>
+		</div>
+		<!-- 帮助别人自己也喊中的 -->
+		<input type="hidden" value="{$money|default=0}" name="money" />
+		<!-- 话筒按钮 -->
+		<div class="speek-btn" id="{if condition="$Think.session.user.status eq 1"}talk_btn{elseif condition="$Think.session.user.status eq 0"/}talk_btn{else /}no_talk{/if}">
+<!-- 			<img class="active" src="__IMG_PATH__/qf-php-bargain/talk-btn-01.png" alt="">
+			<img src="__IMG_PATH__/qf-php-bargain/talk-btn-02.png" alt="">
+			<img src="__IMG_PATH__/qf-php-bargain/talk-btn-03.gif" alt="">	 -->		
+			<div class="active"></div>
+			<div></div>
+			<div></div>
+		</div>
+		<input type="hidden" id="talk" name="talkStu" value="{if condition="$Think.session.user.status eq 0"}1{else /}0{/if}">
+		<p class="cent-tips1">长按图标喊出</p>
+		<h3 class="cent-tips2">千锋PHP全国第一</h3>
+		<div class="cent-btns">
+			{if condition="($Think.session.user.status neq 0)"} 
+					<a href="javascript:;" class="">已报名</a> 
+
+			{else /} 
+				 	<a href="javascript:;" class="j-join" id="sub" >我要参加</a>
+			{/if} 
+					<a href="javascript:;" class="j-share-friend share">邀请好友帮你喊</a>
+		</div>
+
+	</div>
+
+	<!-- 榜单部分 -->
+	<div class="list">
+		<!-- 前十排行榜 -->
+		<div class="popularity-list">
+		{if condition="$helpInfo neq 1"}
+			<h3><a href="javascript:;">人气榜</a></h3>
+			<ul>
+			
+				{volist name='helpInfo' id='vo'}
+				<li class="clearfix">
+					<img src='{$vo.wx_headimgurl|default="__IMG_PATH__/qf-php-bargain/face.png"}' alt="" class="fl">
+					<span class="fl">{$vo.wx_name}</span>
+					<div class="fr">
+						<p>已获得<strong>{$vo.help_money}元</strong></p>
+						<span>{$vo.update_time}</span>
+					</div>
+				</li>
+				{/volist}
+			
+			</ul>
+		{/if}
+		</div>
+
+		<!-- 就业榜 -->
+		<div class="job-list">
+			<h3><a href="javascript:;">就业锋云榜</a></h3>
+			<div class="flex-center-x">
+				<span class="">姓名</span>
+				<span class="">学科</span>
+				<span class="">月薪</span>
+			</div>
+			<ul>
+				<li class="flex-center-x">
+					<span class="">杜*立</span>
+					<span class="">PHP</span>
+					<strong class="">15500元</strong>
+				</li>
+				<li class="flex-center-x">
+					<span class="">卢*臣</span>
+					<span class="">PHP</span>
+					<strong class="">13000元</strong>
+				</li>
+				<li class="flex-center-x">
+					<span class="">张*峰</span>
+					<span class="">PHP</span>
+					<strong class="">16000元</strong>
+				</li>
+				<li class="flex-center-x">
+					<span class="">季*令</span>
+					<span class="">PHP</span>
+					<strong class="">17000元</strong>
+				</li>
+				<li class="flex-center-x">
+					<span class="">闫*华</span>
+					<span class="">PHP</span>
+					<strong class="">21000元</strong>
+				</li>
+				<li class="flex-center-x">
+					<span class="">魏*胜</span>
+					<span class="">PHP</span>
+					<strong class="">23000元</strong>
+				</li>
+
+			</ul>
+		</div>
+		<a class="list-more" href="javascript:;">了解更多内容</a>
+	</div>
+
+	<!-- 底部二维码 -->
+	<div class="bottom">
+		<img src="__IMG_PATH__/qf-php-bargain/btn-01.png" alt="">
+		<p>长按<img src="__IMG_PATH__/qf-php-bargain/ico-03.png" alt="">识别<img src="__IMG_PATH__/qf-php-bargain/ico-03.png" alt="">关注</p>
+		<img src="__IMG_PATH__/qf-php-bargain/ico-01.png" alt="">
+		<div class="clearfix">
+			<p class="fl">长按关注千锋互联<img src="__IMG_PATH__/qf-php-bargain/qrcode-01.png" alt=""></p>
+			<p class="fr">长按关注千锋教育<img src="__IMG_PATH__/qf-php-bargain/qrcode-02.png" alt=""></p>
+		</div>
+	</div>
+
+	<!-- 弹窗 -->
+	<div class='alert-box flex-center-xy {$showSub|default=0} {if condition="isset($sum_money) and $sum_money egt 1000"} flex {/if}' >
+		<!-- 活动说明弹窗 -->
+		<div class="alert-01 flex-center-xy">
+			<h3>活动说明</h3>
+			<span class="alert-close"><img src="__IMG_PATH__/qf-php-bargain/ico-close.png" alt=""></span>
+			<p>
+				1、进入授权页面，填写信息，开始参与活动。在活动页点击话筒，启动麦克风。用户喊出：“千锋PHP全国第一”，进行语音识别，识别通过可获得随机奖励金；
+				<br><br>
+				2、活动开始前填写的信息必须真实有效，学员需凭该信息实现报名抵现，我们会保证您的信息安全。
+				<br><br>
+				3、邀请好友帮忙喊，每喊一次双方都可随机获得相应金额，金额可累计，最多可达1000元。
+				<br><br>
+				4、活动时间为2017年8月10日——8月31日，优惠券使用时间：2017年8月21日——8月日。活动本着公平、公开、公正的原则不可使用非法手段参与活动，一经查出取消活动资格。活动所有数据均以后台数据为准，个人截图等不做为参考。
+				<br><br>
+				5、凡参加此次活动的学员，报名参千锋2017年课程，可凭手机号，身份证原件在缴纳学费时 抵扣相应金额学费 ，发生退费不享受此活动优惠。
+				<br><br>
+				6、参加本次活动获得的优惠仅限本人办理2017年8月21日—8月31日入班时使用，且每人仅限一个ID(手机号)。此优惠不可与其它优惠叠加使用，但限且仅限报名PHP学科时，可叠加使用，此活动中获得的优惠金额不可折现。
+				<br><br>
+				7、该活动最终解释权归千锋教育，如有问题请添加千锋教育公众号进行咨询。
+			</p>
+		</div>
+
+		<!-- 二维码弹窗 -->
+		<div class="alert-02 flex-center-xy">
+			<img src="__IMG_PATH__/qf-php-bargain/btn-02.png" alt="">
+			<p>长按<img src="__IMG_PATH__/qf-php-bargain/ico-04.png" alt="">识别<img src="__IMG_PATH__/qf-php-bargain/ico-04.png" alt="">关注</p>
+			<div>
+				<img src="__IMG_PATH__/qf-php-bargain/qrcode-02.png" alt="">
+				<p>长按二维码关注千锋教育<br>了解更多活动信息！</p>
+			</div>
+			<span class="alert-close"><img src="__IMG_PATH__/qf-php-bargain/ico-close.png" alt=""></span>
+		</div>
+		
+
+		<!-- 填写信息弹窗 -->
+		<div class="alert-04 flex-center-xy {$showSub|default=0}">
+			<p>请填写真实姓名与电话，将作为您的领取凭证！</p>
+			<img src="__IMG_PATH__/qf-php-bargain/ico-05.png" alt="">
+			<p class="clearfix">
+				<img class="fl" src="__IMG_PATH__/qf-php-bargain/ico-06.png" alt="">
+				<input type="text" name="username" placeholder="姓名">
+			</p>
+			<p class="clearfix">
+				<img class="fl" src="__IMG_PATH__/qf-php-bargain/ico-07.png" alt="">
+				<input type="text" name="tel" placeholder="手机号">
+			</p>
+			<a href="javascript:;" class='j-alert-04-ent {$showSub|default=0}'>确定</a>
+			<span class="alert-close"><img src="__IMG_PATH__/qf-php-bargain/ico-close.png" alt=""></span>
+		</div>
+		
+		<!-- 填写完表单之后 的提示 （加入成功） -->
+		<div class="alert-13 flex-center-xy">
+			<p>加入成功，开启活动</p>
+			<img src="./images/qf-php-bargain/ico-08.png" alt="">
+			<span class="alert-close"><img src="./images/qf-php-bargain/ico-close.png" alt=""></span>
+		</div>
+		<!-- 语音识别不成功弹窗 -->
+		<div class="alert-06 flex-center-xy">
+			<p>语音识别不成功<br><span>请重新操作</span></p>
+			<img src="__IMG_PATH__/qf-php-bargain/ico-09.png" alt="">
+			<span class="alert-close"><img src="__IMG_PATH__/qf-php-bargain/ico-close.png" alt=""></span>
+		</div>
+
+		
+		
+	
+		<!-- 成功获得最高金额弹窗 -->
+		<div class='alert-09 flex-center-xy {if condition="isset($sum_money) and $sum_money egt 1000"}flex{/if}'>
+			<p>您已成功获得最高金额</p>
+			<img src="__IMG_PATH__/qf-php-bargain/ico-12.png" alt="">
+			<span class="alert-close"><img src="__IMG_PATH__/qf-php-bargain/ico-close.png" alt=""></span>
+		</div>
+
+		
+
+		<!-- 自己成功获得金额 弹窗 -->
+		<div class="alert-11 flex-center-xy">
+			<h3>你成功获得<strong>30</strong>元</h3>
+			<img src="__IMG_PATH__/qf-php-bargain/ico-14.png" alt="">
+			<!-- 邀请好友帮你喊按钮 -->
+			<a href="javascript:;" class="j-share-friend share"></a>
+			<span class="alert-close"><img src="__IMG_PATH__/qf-php-bargain/ico-close.png" alt=""></span>
+		</div>
+		<!-- 分享 提示 -->
+		<img class="share-tips" src="__IMG_PATH__/qf-php-bargain/share.png" alt="">
+		
+		<!-- 助力列表弹窗 -->
+		<div class="alert-12 flex-center-xy">
+			<h3><span>{$Think.session.user.wx_name}</span>的助力团</h3>
+			<div class="j-alert-help-list">
+				<ul>
+				{if condition="$helpList neq 1"}
+					{volist name='helpList' id='vo'}
+					<li class="clearfix">
+						<img src="{$vo.wx_headimgurl|default="__IMG_PATH__/qf-php-bargain/face.png"}" alt="" class="fl">
+						<span class="fl">{$vo.wx_name}</span>
+						<div class="fr">
+							<p>帮你喊出<strong>{$vo.h_money}</strong>元</p>
+							<span>{$vo.register_time}</span>
+						</div>
+					</li>
+					{/volist}
+				{else /}
+					<li class="clearfix">
+							快参加活动寻找你的助理团吧！
+					</li>
+				{/if}
+
+				</ul>
+				<input type="hidden" name="page" value="1">
+			</div>
+			<p class="j-alert-help-list-tips">下滑加载更多</p>
+			<span class="alert-close"><img src="__IMG_PATH__/qf-php-bargain/ico-close.png" alt=""></span>
+			
+		</div>
+
+
+	</div>
+	
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+	<script src="__JS_PATH__/qf-php-bargain.js?t=1235sdf"></script>
+</body>
+</html>
+<script>
+
+	var host = window.location.host;
+	var voice;
+	var lineLink = 'http://'+host+"{:url('index/bargain')}?helpto={$Think.session.user.id}&time={$time}&token={$token}&from_stu={$Think.session.user.from_stu}";
+		wx.config({
+			debug: false,
+			appId: '<?php echo $signPackage["appId"];?>',
+			timestamp: <?php echo $signPackage["timestamp"];?>,
+			nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+			signature: '<?php echo $signPackage["signature"];?>',
+			jsApiList: [
+				// 所有要调用的 API 都要加到这个列表中
+				'checkJsApi',
+				'openLocation',
+				'getLocation',
+				'onMenuShareTimeline',
+				'onMenuShareAppMessage',
+				'translateVoice',
+				'onVoiceRecordEnd',
+				'stopVoice',
+				'startRecord',
+				'stopRecord',
+				'uploadVoice',
+
+				
+			  ]
+		});
+		wx.ready(function () {
+			wx.checkJsApi({
+				jsApiList: [
+					'getLocation',
+					'onMenuShareTimeline',
+					'onMenuShareAppMessage',
+					'translateVoice',
+					'onVoiceRecordEnd',
+					'stopVoice',
+					'startRecord',
+					'stopRecord',
+					'uploadVoice'
+				],
+				success: function (res) {
+					//alert(JSON.stringify(res));
+				}
+			});
+			wx.onMenuShareAppMessage({
+			  title: '心系学员,千锋狂送百万福利!',
+			  desc: '千锋学PHP全国第一',
+			  link: lineLink,
+			  imgUrl:'__STATI_INDEX__images/bargain/qf.jpg',
+			  trigger: function (res) {
+				// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+				// alert('用户点击发送给朋友');
+			  },
+			  success: function (res) {
+				window.location.href ='http://'+host;
+			  },
+			  cancel: function (res) {
+				// alert('已取消');
+			  },
+			  fail: function (res) {
+				// alert(JSON.stringify(res));
+			  }
+			});
+			wx.onMenuShareTimeline({
+			  title: '心系学员,千锋狂送百万福利!',
+			  desc: '千锋学PHP全国第一',
+			  link: lineLink,
+			  imgUrl: '__STATI_INDEX__images/bargain/qf.jpg',
+			  trigger: function (res) {
+				// 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
+				// alert('用户点击分享到朋友圈');
+			  },
+			  success: function (res) {
+				window.location.href ='http://'+host;
+			  },
+			  cancel: function (res) {
+				// alert('已取消');
+			  },
+			  fail: function (res) {
+				// alert(JSON.stringify(res));
+			  }
+			});
+		});
+	$('#no_talk').on('touchstart', function(event){
+	    	alert('你已经抢过啦');
+	});
+	$('#talk_btn').on('touchstart', function(event){
+			var bReg = $('#talk').val();
+			
+			var bmoney = $('input[name=money]').val();
+			if (bReg == 1) {
+				$('.alert-box').addClass('flex');
+				$('.alert-04').addClass('flex');
+				return;
+			}
+			{if condition="isset($sum_money)"}
+			if ({$sum_money} >= 1000) {
+				$('.alert-box').addClass('flex');
+				$('.alert-09').addClass('flex');
+				return;
+			}
+			{/if}
+	    	event.preventDefault();
+	    	START = new Date().getTime();
+	    	$('.speek-btn').children().removeClass('active');
+			$('.speek-btn').children().eq(1).addClass('active')
+		    recordTimer = setTimeout(function(){
+		    	$('.speek-btn').children().removeClass('active');
+				$('.speek-btn').children().eq(2).addClass('active')	
+		        wx.startRecord({
+		            success: function(){
+		                localStorage.rainAllowRecord = 'true';
+		            },
+		            cancel: function () {
+		                alert('您拒绝录音则不能助力好友');
+		            }
+		        });
+		    },300);
+	});
+	//松手结束录音
+	$('#talk_btn').on('touchend', function(event){
+		var bReg = $('#talk').val();
+		var bmoney = $('input[name=money]').val();
+			if (bReg == 1) {
+				return ;
+			}
+			{if condition="isset($sum_money)"}
+			if ({$sum_money} >= 1000) {
+				
+				return;
+			}
+			{/if}
+		$('.speek-btn').children().removeClass('active');
+	 	$('.speek-btn').children().eq(0).addClass('active')
+	    event.preventDefault();
+	    END = new Date().getTime();
+	    
+	    if((END - START) < 300){
+	        END = 0;
+	        START = 0;
+	        //小于300ms，不录音
+	        clearTimeout(recordTimer);
+	    }else{
+	        wx.stopRecord({
+	          success: function (res) {
+	            voice= res.localId;
+	            $("#vi").val(voice);
+	            shibie();
+	            //uploadVoices();
+
+	          },
+	          fail: function (res) {
+	            alert(JSON.stringify(res));
+	          }
+	        });
+	    }
+	});
+
+	//上传录音
+
+function shibie()
+{
+	wx.translateVoice({
+	   localId: voice, // 需要识别的音频的本地Id，由录音相关接口获得
+	    isShowProgressTips: 1, // 默认为1，显示进度提示
+	    success: function (res) {
+	        if (res.hasOwnProperty('translateResult')) {
+	        	// alert('识别结果：' + res.translateResult);
+	        	var re = {text:res.translateResult}
+
+	          		$.ajax({
+	                url: "{:url('index/help')}",
+	                type: 'post',
+	                data: re,
+	                dataType: "json",
+	                success: function (data) {
+	                	var json = JSON.parse(data);
+
+	                 if (json.errcode == 1) {
+	                 	$('.alert-11 h3').html('你成功获得<strong>'+json.money+'</strong>元');
+	                  	$('.speek-btn').attr('id','no_talk');
+	                  	$('.alert-04').removeClass('flex');
+	     				$('.alert-box').addClass('flex');
+						$('.alert-11').addClass('flex');
+	                 } else {
+	                 	
+	                 	$('.alert-box').addClass('flex');
+	                 	$('.alert-06').addClass('flex');
+	                 }
+	                },
+	                error: function (xhr, errorType, error) {
+	                   
+	                }
+            	});
+        	} else {
+          		alert('无法识别,请重新录音');
+        	}
+	    }
+	});
+}
+function uploadVoices(){
+    //调用微信的上传录音接口把本地录音先上传到微信的服务器
+    //不过，微信只保留3天，而我们需要长期保存，我们需要把资源从微信服务器下载到自己的服务器
+    wx.uploadVoice({
+        localId: voice, // 需要上传的音频的本地ID，由stopRecord接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function (res) {
+            //把录音在微信服务器上的id（res.serverId）发送到自己的服务器供下载。
+            $.ajax({
+                url: "{:url('index/savevoice')}",
+                type: 'post',
+                data: JSON.stringify(res),
+                dataType: "json",
+                success: function (data) {
+                   // alert('cheng');//这回，我使用七牛存储
+                   console(data);
+                },
+                error: function (xhr, errorType, error) {
+                    console.log(2);
+                   // alert(2);
+                }
+            });
+        }
+    });
+}
+//上拉加载
+	var bLoad = true;
+	var scrollUl = $('.j-alert-help-list>ul');
+	var n = 1;
+	var ajaxStu = true;
+	$('.j-alert-help-list').scroll(function(){
+		//当列表滚动到距离底部30px时开始加载数据
+		if($(this).scrollTop() >= scrollUl.height()-$(this).height()-30){
+			//设置bLoad是为了让里面的代码只执行一次，如果不设置，里面的代码会执行很多次
+			if(bLoad){
+				//设置一个条件（数据是否加载完了）
+				//如果加载完了就停止加载
+				if(ajaxStu == false){
+					$('.j-alert-help-list-tips').html('加载完了。')
+				//否则继续加载
+				}else{
+					$('.j-alert-help-list-tips').html('加载中。。。')
+					//设置定时器是为了模拟网络慢的时候，可以直接去掉
+						n++;
+						$.ajax({
+							type: "GET",
+							url: "{:url('index/helplist')}",
+							data:{page:n,uid:{$Think.session.user.id}},
+							success: function(data){
+								var json = JSON.parse(data);
+								console.log(json);
+								if (json.errcode == 2) {
+									var html = scrollUl.html();
+									var info = json.info;
+									for(var i in info){
+										console.log(info[i]);
+										html+= '<li class="clearfix">\
+												<img src="'+info[i].wx_headimgurl+'" alt="" class="fl">\
+												<span class="fl">'+info[i].wx_name+'</span>\
+												<div class="fr">\
+													<p>帮你喊出<strong>'+info[i].h_money+'</strong>元</p>\
+													<span>'+info[i].register_time+'</span>\
+												</div>\
+											</li>';
+									}
+									scrollUl.html('').html(html)
+									$('.j-alert-help-list-tips').html('下拉加载更多')
+								} else {
+									$('.j-alert-help-list-tips').html('加载完了')
+									ajaxStu = false;
+								}
+								
+							},
+							error: function(err){
+								
+							}
+						})
+				
+				}
+
+			}
+			bLoad = false;
+		}else{
+			bLoad = true;
+		}
+	})
+
+</script>

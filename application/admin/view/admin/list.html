@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__CSS_PATH__/pintuer.css">
+<link rel="stylesheet" href="__CSS_PATH__/admin.css">
+<link rel="stylesheet" type="text/css" href="__CSS_PATH__/bootstrap.css">
+<script src="__JS_PATH__/jquery-1.12.3.min.js"></script>
+<script type="text/javascript" src="__JS_PATH__/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+  <div class="panel admin-panel">
+   
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+       
+        <li>搜索：</li>
+       
+       
+        <li>
+          <input type="text" placeholder="输入参加活动手机号查找" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <a href="javascript:changesearch()" class="button border-main icon-search" > 搜索</a></li>
+          <li><h3>已缴费人数:{$isPay}</h3></li>
+       <li><h3>未缴费人数:{$isNotPay}</h3></li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th >ID</th>
+        <th>微信昵称</th>
+        <th>头像</th>
+        <th>参加活动姓名</th>
+        <th>手机号</th>
+        <!-- <th>自己抢金额</th> -->
+        <th>总助力金额</th>
+        <!-- <th>助力次数</th> -->
+        <th>完成时间</th>
+        <th>来源</th>
+        <th>是否缴费</th>
+        <th>操作</th>
+        
+      </tr>
+      {volist name="list" id="vo"}
+        <tr>
+         
+          <td>{$vo.id}</td>
+          <td width="10%">{$vo.wx_name}</td>
+          <td><img src="{$vo.wx_headimgurl}" width="46" /></td>
+          <td><font color="#00CC99">{$vo.real_name}</font></td>
+          <td><font color="#00CC99">{:substr_replace($vo.phone,'****',3,4)}</font></td>
+          <!-- <td>{$vo.m_money}</td>-->
+          <td>{$vo.help_money}</td>
+          <!-- <td>{$vo.help_num}</td> -->
+          <td>{if condition="($vo.over_time)"} 
+                  <font color="#00CC99">{$vo.over_time|date="y-m-d H:i:s",###}</font>
+              {elseif condition="$vo.status eq 0"/}
+                  <font color="red">未参加活动</font>
+              {else /} 
+                  <font color="#0ae"> 助力中</font>
+              {/if}
+          </td>
+          <td>{if condition="$vo.from_stu eq 1"} 
+                  <font color="#00CC99">网咨</font>
+              {elseif condition="$vo.from_stu eq 2"/}
+                  <font color="red">院校</font>
+              {/if}</td>
+         
+             <td>{if condition="$vo.ispay eq 0"} 
+                    <font color="#00CC99">未缴费</font>
+                {elseif condition="$vo.ispay eq 1"/}
+                    <font color="red">已缴费</font>
+                {/if}
+             </td>
+
+            <td>{if condition="$vo.ispay eq 0"} 
+                
+            <a href="{:url('admin/admin/isPayStatus',array('id'=>$vo['id']))}"  onclick="return confirm('确定要修改么?');" >修改状态</a>
+                {elseif condition="$vo.ispay eq 1"/}
+                    <font color="red">已缴费</font>
+                {/if}
+             </td>
+            
+        </tr>
+      {/volist}
+     <tr>   
+        <td colspan="9">{$list->render()}</td>
+     </tr>
+    </table>
+  </div>
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+        <h4 class="modal-title" id="myModalLabel">搜索结果</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover text-center">
+      <tr>
+        <th >ID</th>
+        <th>微信昵称</th>
+        <th>头像</th>
+        <th>参加活动姓名</th>
+        <th>手机号</th>
+        <!-- <th>自己抢金额</th> -->
+        <th>总助力金额</th>
+        <!-- <th>助力次数</th> -->
+        
+       
+      </tr>
+      
+      <tr class="search-con">
+      </tr>
+    </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" ><a href="" class="detail">查看助力详情</a></button> -->
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  
+//搜索
+function changesearch(){  
+    var tel = $('.input').val();
+    if(!tel.match(/0?(13|14|15|18|17)[0-9]{9}/)){
+        alert('手机号格式错误')
+        return false;
+    }
+     //console.log(tel);
+    $.post('{:url('admin/admin/search')}',{phone:tel},function(json){
+      var vo = JSON.parse(json);
+      //console.log(vo);
+      if (vo.errcode == 0) {
+
+        var str = "<td>" + vo.info.id +"</td>"+          
+              "<td width='10%'>"+ vo.info.wx_name +"</td>"+
+              "<td><img src="+ vo.info.wx_headimgurl +" width='46' /></td>"+
+              '<td><font color="#00CC99">'+ vo.info.real_name +'</font></td>'+
+              '<td><font color="#00CC99">'+ vo.info.phone +'</font></td>'+
+              "<td>"+ vo.info.help_money +"</td>";
+              
+          $('.search-con').html(str);
+          $('.detail').attr('href','details/id/' +vo.info.id );
+         $('#myModal').modal('show');  
+      } else {
+        alert('没有查找到相匹配内容');
+      }
+    },'json');
+   
+  
+}
+ 
+
+
+
+
+
+
+</script>
+</body>
+</html>
